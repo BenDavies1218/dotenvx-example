@@ -1,4 +1,4 @@
-// apps/website/src/components/LanguageShowcase.jsx
+// apps/website/src/components/LanguageShowcase.tsx
 import { useState } from "react";
 import { Light as SyntaxHighlighter } from "react-syntax-highlighter";
 import js from "react-syntax-highlighter/dist/esm/languages/hljs/javascript";
@@ -12,9 +12,13 @@ SyntaxHighlighter.registerLanguage("json", json);
 
 const GITHUB_BASE = "https://github.com/your-org/dotenvx-example/tree/main";
 
-function CopyButton({ value }) {
-  const [copied, setCopied] = useState(false);
-  function copy() {
+interface CopyButtonProps {
+  value: string;
+}
+
+function CopyButton({ value }: CopyButtonProps): React.JSX.Element {
+  const [copied, setCopied] = useState<boolean>(false);
+  function copy(): void {
     navigator.clipboard.writeText(value);
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
@@ -29,7 +33,12 @@ function CopyButton({ value }) {
   );
 }
 
-function CodeRow({ label, value }) {
+interface CodeRowProps {
+  label: React.ReactNode;
+  value: string;
+}
+
+function CodeRow({ label, value }: CodeRowProps): React.JSX.Element {
   return (
     <div>
       <p className="text-xs font-mono text-gray-400 mb-1">{label}</p>
@@ -43,9 +52,9 @@ function CodeRow({ label, value }) {
   );
 }
 
-export function LanguageShowcase() {
-  const [active, setActive] = useState(languages[0].id);
-  const lang = languages.find((l) => l.id === active);
+export function LanguageShowcase(): React.JSX.Element {
+  const [active, setActive] = useState<string>(languages[0].id);
+  const lang = languages.find((l) => l.id === active)!;
   const configFile = lang.configFile ?? "envlock.config.js";
   const commandName = lang.commandName ?? "dev";
   const isPlugin = lang.id === "nextjs";

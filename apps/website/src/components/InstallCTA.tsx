@@ -1,13 +1,13 @@
-// apps/website/src/components/InstallCTA.jsx
+// apps/website/src/components/InstallCTA.tsx
 import { useState } from "react";
 
 const GITHUB_URL = "https://github.com/your-org/dotenvx-example";
 
-export function InstallCTA() {
-  const [copied, setCopied] = useState(false);
+export function InstallCTA(): React.JSX.Element {
+  const [copied, setCopied] = useState<boolean>(false);
   const cmd = "npm install -g envlock-core";
 
-  function copy() {
+  function copy(): void {
     navigator.clipboard.writeText(cmd);
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);

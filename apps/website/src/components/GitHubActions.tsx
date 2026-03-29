@@ -1,9 +1,15 @@
-// apps/website/src/components/GitHubActions.jsx
+// apps/website/src/components/GitHubActions.tsx
 import { Light as SyntaxHighlighter } from 'react-syntax-highlighter'
 import yaml from 'react-syntax-highlighter/dist/esm/languages/hljs/yaml'
 import { githubGist } from 'react-syntax-highlighter/dist/esm/styles/hljs'
 
 SyntaxHighlighter.registerLanguage('yaml', yaml)
+
+interface Step {
+  number: string;
+  title: string;
+  description: React.ReactNode;
+}
 
 const workflowSnippet = `name: Deploy
 
@@ -28,7 +34,7 @@ jobs:
         env:
           DOTENV_PRIVATE_KEY_PRODUCTION: \${{ secrets.DOTENV_PRIVATE_KEY_PRODUCTION }}`
 
-const steps = [
+const steps: Step[] = [
   {
     number: '01',
     title: 'Export your key',
@@ -62,7 +68,7 @@ const steps = [
   },
 ]
 
-export function GitHubActions() {
+export function GitHubActions(): React.JSX.Element {
   return (
     <section id="ci" className="max-w-4xl mx-auto px-6 py-20 border-t border-gray-100">
       <h2 className="text-2xl font-semibold text-gray-900 mb-3 text-center">GitHub Actions</h2>

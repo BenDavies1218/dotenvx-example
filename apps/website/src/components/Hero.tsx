@@ -1,11 +1,11 @@
-// apps/website/src/components/Hero.jsx
+// apps/website/src/components/Hero.tsx
 import { useState } from "react";
 
-export function Hero() {
-  const [copied, setCopied] = useState(false);
+export function Hero(): React.JSX.Element {
+  const [copied, setCopied] = useState<boolean>(false);
   const installCmd = "npm install -g envlock-core";
 
-  function copy() {
+  function copy(): void {
     navigator.clipboard.writeText(installCmd);
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);

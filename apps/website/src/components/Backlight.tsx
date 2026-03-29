@@ -1,6 +1,12 @@
 import { useId } from 'react'
 
-export function Backlight({ blur = 20, children, className }) {
+interface BacklightProps {
+  blur?: number
+  children?: React.ReactNode
+  className?: string
+}
+
+export function Backlight({ blur = 20, children, className }: BacklightProps): React.JSX.Element {
   const id = useId()
 
   return (

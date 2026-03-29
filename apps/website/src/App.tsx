@@ -9,19 +9,25 @@ import { GitHubActions } from "./components/GitHubActions";
 import { OnePasswordCI } from "./components/OnePasswordCI";
 import { DotPattern } from "./components/DotPattern";
 
+interface ColorStop {
+  r: number;
+  g: number;
+  b: number;
+}
+
 // scroll color stops: green → orange → yellow → blue
-const COLOR_STOPS = [
+const COLOR_STOPS: ColorStop[] = [
   { r: 187, g: 247, b: 208 }, // green-200
   { r: 254, g: 215, b: 170 }, // orange-200
   { r: 254, g: 240, b: 138 }, // yellow-200
   { r: 191, g: 219, b: 254 }, // blue-200
 ];
 
-function lerp(a, b, t) {
+function lerp(a: number, b: number, t: number): number {
   return Math.round(a + (b - a) * t);
 }
 
-function getScrollColor() {
+function getScrollColor(): string {
   const scrolled = window.scrollY;
   const total = document.documentElement.scrollHeight - window.innerHeight;
   const progress = total > 0 ? Math.min(scrolled / total, 1) : 0;
@@ -40,11 +46,11 @@ function getScrollColor() {
   return `rgb(${r},${g},${b})`;
 }
 
-export default function App() {
-  const [gradientColor, setGradientColor] = useState("rgb(187,247,208)");
+export default function App(): React.JSX.Element {
+  const [gradientColor, setGradientColor] = useState<string>("rgb(187,247,208)");
 
   useEffect(() => {
-    function onScroll() {
+    function onScroll(): void {
       setGradientColor(getScrollColor());
     }
     window.addEventListener("scroll", onScroll, { passive: true });

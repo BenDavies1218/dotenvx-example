@@ -2,6 +2,30 @@ import { useEffect, useId, useRef, useState } from 'react'
 import { motion } from 'motion/react'
 import { cn } from '../lib/utils'
 
+interface DotPatternProps extends React.SVGProps<SVGSVGElement> {
+  width?: number
+  height?: number
+  x?: number
+  y?: number
+  cx?: number
+  cy?: number
+  cr?: number
+  className?: string
+  glow?: boolean
+}
+
+interface Dot {
+  x: number
+  y: number
+  delay: number
+  duration: number
+}
+
+interface Dimensions {
+  width: number
+  height: number
+}
+
 export function DotPattern({
   width = 16,
   height = 16,
@@ -13,13 +37,13 @@ export function DotPattern({
   className,
   glow = false,
   ...props
-}) {
+}: DotPatternProps): React.JSX.Element {
   const id = useId()
-  const containerRef = useRef(null)
-  const [dimensions, setDimensions] = useState({ width: 0, height: 0 })
+  const containerRef = useRef<SVGSVGElement>(null)
+  const [dimensions, setDimensions] = useState<Dimensions>({ width: 0, height: 0 })
 
   useEffect(() => {
-    const updateDimensions = () => {
+    const updateDimensions = (): void => {
       if (containerRef.current) {
         const { width, height } = containerRef.current.getBoundingClientRect()
         setDimensions({ width, height })
@@ -31,7 +55,7 @@ export function DotPattern({
     return () => window.removeEventListener('resize', updateDimensions)
   }, [])
 
-  const dots = Array.from(
+  const dots: Dot[] = Array.from(
     {
       length:
         Math.ceil(dimensions.width / width) *

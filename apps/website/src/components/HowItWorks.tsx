@@ -1,6 +1,12 @@
-// apps/website/src/components/HowItWorks.jsx
+// apps/website/src/components/HowItWorks.tsx
 
-const steps = [
+interface Step {
+  number: string;
+  title: string;
+  description: React.ReactNode;
+}
+
+const steps: Step[] = [
   {
     number: "01",
     title: "Encrypt",
@@ -49,7 +55,7 @@ const steps = [
   },
 ];
 
-export function HowItWorks() {
+export function HowItWorks(): React.JSX.Element {
   return (
     <section
       id="how-it-works"

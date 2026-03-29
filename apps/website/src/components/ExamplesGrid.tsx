@@ -1,4 +1,4 @@
-// apps/website/src/components/ExamplesGrid.jsx
+// apps/website/src/components/ExamplesGrid.tsx
 import { useState } from "react";
 import { languages } from "../data/languages";
 
@@ -8,8 +8,14 @@ const GITHUB_BASE = "https://github.com/your-org/dotenvx-example/tree/main";
 const inner = languages.slice(0, 4);
 const outer = languages.slice(4);
 
+interface NodeStyle {
+  size: number;
+  bg: string;
+  border: string;
+}
+
 // deterministic visual variation per language
-const nodeStyles = [
+const nodeStyles: NodeStyle[] = [
   { size: 56, bg: "bg-white", border: "border-gray-200" },
   { size: 52, bg: "bg-gray-50", border: "border-gray-300" },
   { size: 60, bg: "bg-white", border: "border-gray-200" },
@@ -22,7 +28,12 @@ const nodeStyles = [
   { size: 56, bg: "bg-gray-50", border: "border-gray-200" },
 ];
 
-function getPos(index, total, radiusPct, startAngle = -Math.PI / 2) {
+interface Position {
+  x: number;
+  y: number;
+}
+
+function getPos(index: number, total: number, radiusPct: number, startAngle: number = -Math.PI / 2): Position {
   const angle = startAngle + (index / total) * 2 * Math.PI;
   return {
     x: 50 + radiusPct * Math.cos(angle),
@@ -30,7 +41,24 @@ function getPos(index, total, radiusPct, startAngle = -Math.PI / 2) {
   };
 }
 
-function LangNode({ lang, pos, style, hovered, onHover }) {
+interface Language {
+  id: string;
+  name: string;
+  image: string;
+  imageClass?: string;
+  description: string;
+  examplePath: string;
+}
+
+interface LangNodeProps {
+  lang: Language;
+  pos: Position;
+  style: NodeStyle;
+  hovered: boolean;
+  onHover: (id: string | null) => void;
+}
+
+function LangNode({ lang, pos, style, hovered, onHover }: LangNodeProps): React.JSX.Element {
   const isLeft = pos.x < 50;
   const isTop = pos.y < 50;
   const imgSize = Math.round(style.size * 0.52);
@@ -83,8 +111,8 @@ function LangNode({ lang, pos, style, hovered, onHover }) {
   );
 }
 
-export function ExamplesGrid() {
-  const [hovered, setHovered] = useState(null);
+export function ExamplesGrid(): React.JSX.Element {
+  const [hovered, setHovered] = useState<string | null>(null);
 
   return (
     <section

@@ -1,9 +1,15 @@
-// apps/website/src/components/OnePasswordCI.jsx
+// apps/website/src/components/OnePasswordCI.tsx
 import { Light as SyntaxHighlighter } from "react-syntax-highlighter";
 import yaml from "react-syntax-highlighter/dist/esm/languages/hljs/yaml";
 import { githubGist } from "react-syntax-highlighter/dist/esm/styles/hljs";
 
 SyntaxHighlighter.registerLanguage("yaml", yaml);
+
+interface Step {
+  number: string;
+  title: string;
+  description: React.ReactNode;
+}
 
 const workflowSnippet = `name: Deploy
 
@@ -33,7 +39,7 @@ jobs:
       - name: Build with secrets
         run: npx envlock run npm run build`;
 
-const steps = [
+const steps: Step[] = [
   {
     number: "01",
     title: "Create a service account",
@@ -76,7 +82,7 @@ const steps = [
   },
 ];
 
-export function OnePasswordCI() {
+export function OnePasswordCI(): React.JSX.Element {
   return (
     <section
       id="1password-ci"

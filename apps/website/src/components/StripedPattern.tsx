@@ -1,12 +1,19 @@
 import { useId } from 'react'
 
+interface StripedPatternProps extends React.SVGProps<SVGSVGElement> {
+  direction?: 'left' | 'right'
+  className?: string
+  width?: number | string
+  height?: number | string
+}
+
 export function StripedPattern({
   direction = 'left',
   className = '',
   width = 10,
   height = 10,
   ...props
-}) {
+}: StripedPatternProps): React.JSX.Element {
   const id = useId()
   const w = Number(width)
   const h = Number(height)
