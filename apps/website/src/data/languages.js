@@ -2,9 +2,26 @@
 
 export const languages = [
   {
+    id: 'nextjs',
+    name: 'Next.js',
+    image: '/nextjs.jpg',
+    description: 'Native plugin — wrap your next.config.js with withEnvlock',
+    command: 'next dev',
+    examplePath: 'examples/node',
+    configFile: 'next.config.js',
+    snippet: `import { withEnvlock } from '@envlock/next'
+
+export default withEnvlock(
+  {},
+  {
+    onePasswordEnvId: 'your-env-id',
+  },
+)`,
+  },
+  {
     id: 'node',
     name: 'Node.js',
-    icon: '⬡',
+    image: '/node.png',
     description: 'Express, Fastify, or any Node.js server',
     command: 'node server.js',
     examplePath: 'examples/node',
@@ -12,7 +29,7 @@ export const languages = [
   {
     id: 'python',
     name: 'Python',
-    icon: '🐍',
+    image: '/python.png',
     description: 'Flask, FastAPI, Django — any Python app',
     command: 'python app.py',
     examplePath: 'examples/python',
@@ -20,7 +37,7 @@ export const languages = [
   {
     id: 'go',
     name: 'Go',
-    icon: '🐹',
+    image: '/go.png',
     description: 'Any Go binary or HTTP server',
     command: 'go run main.go',
     examplePath: 'examples/go',
@@ -28,7 +45,7 @@ export const languages = [
   {
     id: 'rust',
     name: 'Rust',
-    icon: '⚙️',
+    image: '/rust.png',
     description: 'Axum, Actix, or any Rust binary',
     command: 'cargo run',
     examplePath: 'examples/rust',
@@ -36,7 +53,7 @@ export const languages = [
   {
     id: 'ruby',
     name: 'Ruby',
-    icon: '💎',
+    image: '/ruby.jpeg',
     description: 'Sinatra, Rails, or plain Ruby scripts',
     command: 'ruby app.rb',
     examplePath: 'examples/ruby',
@@ -44,7 +61,7 @@ export const languages = [
   {
     id: 'java',
     name: 'Java',
-    icon: '☕',
+    image: '/java.png',
     description: 'Spring Boot or any Java application',
     command: './mvnw spring-boot:run',
     examplePath: 'examples/java',
@@ -52,7 +69,7 @@ export const languages = [
   {
     id: 'php',
     name: 'PHP',
-    icon: '🐘',
+    image: '/php.jpeg',
     description: 'Plain PHP or Laravel applications',
     command: 'php -S localhost:8000',
     examplePath: 'examples/php',
@@ -60,7 +77,7 @@ export const languages = [
   {
     id: 'dotnet',
     name: '.NET',
-    icon: '🔷',
+    image: '/dotnet.png',
     description: 'ASP.NET Core minimal API',
     command: 'dotnet run',
     examplePath: 'examples/dotnet',
@@ -68,7 +85,7 @@ export const languages = [
   {
     id: 'hardhat',
     name: 'Hardhat',
-    icon: '⛏️',
+    image: '/eth.png',
     description: 'Inject PRIVATE_KEY and RPC URLs at deploy time',
     command: 'npx hardhat run scripts/deploy.js',
     examplePath: 'examples/hardhat',
@@ -76,6 +93,7 @@ export const languages = [
 ]
 
 export function getConfigSnippet(lang) {
+  if (lang.snippet) return lang.snippet
   return `export default {
   onePasswordEnvId: 'your-env-id',
   commands: {

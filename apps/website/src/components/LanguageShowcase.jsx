@@ -13,6 +13,7 @@ const GITHUB_BASE = 'https://github.com/your-org/dotenvx-example/tree/main'
 export function LanguageShowcase() {
   const [active, setActive] = useState(languages[0].id)
   const lang = languages.find((l) => l.id === active)
+  const configFile = lang.configFile ?? 'envlock.config.js'
 
   return (
     <section id="showcase" className="max-w-4xl mx-auto px-6 py-20 border-t border-gray-100">
@@ -27,12 +28,13 @@ export function LanguageShowcase() {
           <button
             key={l.id}
             onClick={() => setActive(l.id)}
-            className={`px-4 py-1.5 rounded-full text-sm font-medium transition-colors ${
+            className={`inline-flex items-center gap-2 px-3 py-1.5 rounded-full text-sm font-medium transition-colors ${
               active === l.id
                 ? 'bg-gray-900 text-white'
                 : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
             }`}
           >
+            <img src={l.image} alt={l.name} className="w-4 h-4 object-contain" />
             {l.name}
           </button>
         ))}
@@ -42,7 +44,10 @@ export function LanguageShowcase() {
       <div className="border border-gray-200 rounded-xl overflow-hidden">
         {/* Header */}
         <div className="flex items-center justify-between px-5 py-3 border-b border-gray-100 bg-gray-50">
-          <span className="text-sm font-medium text-gray-700">{lang.name} — {lang.description}</span>
+          <div className="flex items-center gap-2">
+            <img src={lang.image} alt={lang.name} className="w-5 h-5 object-contain" />
+            <span className="text-sm font-medium text-gray-700">{lang.name} — {lang.description}</span>
+          </div>
           <a
             href={`${GITHUB_BASE}/${lang.examplePath}`}
             target="_blank"
@@ -53,9 +58,9 @@ export function LanguageShowcase() {
           </a>
         </div>
 
-        {/* envlock.config.js */}
+        {/* Config file snippet */}
         <div className="px-5 pt-4 pb-1">
-          <p className="text-xs font-mono text-gray-400 mb-1">envlock.config.js</p>
+          <p className="text-xs font-mono text-gray-400 mb-1">{configFile}</p>
           <SyntaxHighlighter
             language="javascript"
             style={githubGist}

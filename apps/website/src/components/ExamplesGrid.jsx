@@ -19,7 +19,7 @@ export function ExamplesGrid() {
             rel="noreferrer"
             className="group flex flex-col gap-2 p-5 border border-gray-200 rounded-xl hover:border-gray-400 transition-colors"
           >
-            <span className="text-2xl">{lang.icon}</span>
+            <img src={lang.image} alt={lang.name} className="w-8 h-8 object-contain" />
             <span className="text-sm font-semibold text-gray-900">{lang.name}</span>
             <span className="text-xs text-gray-500 leading-relaxed">{lang.description}</span>
             <span className="text-xs text-gray-400 group-hover:text-gray-700 transition-colors mt-auto pt-2">
