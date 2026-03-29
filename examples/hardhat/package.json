@@ -1,0 +1,13 @@
+{
+  "name": "envlock-example-hardhat",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "deploy": "envlock deploy",
+    "compile": "envlock compile"
+  },
+  "devDependencies": {
+    "hardhat": "^2.22.0",
+    "envlock-core": "latest"
+  }
+}
