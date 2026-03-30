@@ -1,7 +1,7 @@
 // apps/website/src/components/InstallCTA.tsx
 import { useState } from "react";
 
-const GITHUB_URL = "https://github.com/your-org/dotenvx-example";
+const GITHUB_URL = "https://github.com/BenDavies1218/envlock-examples";
 
 export function InstallCTA(): React.JSX.Element {
   const [copied, setCopied] = useState<boolean>(false);

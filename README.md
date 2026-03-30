@@ -19,7 +19,7 @@ How it works:
 
 ## Documentation
 
-[Github pages](https://bendavies1218.github.io/envlock-examples/)
+[Github pages](bendavies1218.github.io/envlock-examples/)
 
 ## Examples
 
