@@ -9,8 +9,8 @@ importers:
   .:
     dependencies:
       envlock-next:
-        specifier: ^0.6.1
-        version: 0.6.1(@dotenvx/dotenvx@1.59.1)(next@16.2.1(@babel/core@7.29.0)(react-dom@19.2.4(react@19.2.4))(react@19.2.4))
+        specifier: ^0.6.2
+        version: 0.6.2(@dotenvx/dotenvx@1.59.1)(next@16.2.1(@babel/core@7.29.0)(react-dom@19.2.4(react@19.2.4))(react@19.2.4))
       next:
         specifier: 16.2.1
         version: 16.2.1(@babel/core@7.29.0)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
@@ -936,8 +936,8 @@ packages:
     engines: {node: '>=18'}
     hasBin: true
 
-  envlock-next@0.6.1:
-    resolution: {integrity: sha512-OH0zbTde2wMY3YHZvHuLBHqew9IPSuX0gUcv9HbrDj3l+C770KSaSfrE859WfIBkmzucnGusxw0u3KcJ1LHJiQ==}
+  envlock-next@0.6.2:
+    resolution: {integrity: sha512-FZCmZtR6JaZAOGgs3x7oKVTStCsX5xeExYU2VTX2Y9rWs1b9jpmCH0gs7ibhc8NEkgdbeGWI0fed8cIIBIDO+Q==}
     engines: {node: '>=18'}
     hasBin: true
     peerDependencies:
@@ -2891,7 +2891,7 @@ snapshots:
 
   envlock-core@0.6.1: {}
 
-  envlock-next@0.6.1(@dotenvx/dotenvx@1.59.1)(next@16.2.1(@babel/core@7.29.0)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)):
+  envlock-next@0.6.2(@dotenvx/dotenvx@1.59.1)(next@16.2.1(@babel/core@7.29.0)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)):
     dependencies:
       '@dotenvx/dotenvx': 1.59.1
       commander: 12.1.0
