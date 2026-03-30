@@ -121,6 +121,37 @@ export default withEnvlock(
 
 See [`examples/nextjs/`](examples/nextjs/) for a full working example.
 
+## Deploying to Vercel
+
+Vercel's build environment doesn't have 1Password CLI, so envlock falls back to its CI mode — you provide the decryption key directly as an environment variable and it skips 1Password automatically.
+
+### 1. Create and encrypt a production env file
+
+```bash
+npx @dotenvx/dotenvx set API_SECRET "my-secret" -f .env.production
+```
+
+Commit `.env.production` (encrypted values are safe to commit). Never commit `.env.keys`.
+
+### 2. Add the private key to Vercel
+
+In your Vercel project go to **Settings → Environment Variables** and add:
+
+| Name | Value | Environment |
+| ---- | ----- | ----------- |
+| `DOTENV_PRIVATE_KEY_PRODUCTION` | *(value from `.env.keys`)* | Production |
+
+### 3. Deploy
+
+Push your code. During the Vercel build, envlock detects `DOTENV_PRIVATE_KEY_PRODUCTION` is already set and decrypts `.env.production` without calling 1Password.
+
+```text
+⟐ injecting env (4) from .env.production · dotenvx@x.x.x
+▲ Next.js x.x.x
+```
+
+> The encrypted `.env.production` file is safe to commit — without the private key it is unreadable.
+
 ## Benefits
 
 - **No plaintext secrets on disk** — encrypted values are safe to commit
