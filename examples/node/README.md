@@ -2,34 +2,36 @@
 
 Minimal Express server with secrets injected by envlock.
 
-## Setup
-
-1. Install dependencies: `npm install`
-2. Encrypt your `.env.development`: `npx dotenvx encrypt -f .env.development`
-3. Store the generated key in 1Password and set `onePasswordEnvId` in `envlock.config.js`
-
 ## Run
 
 ```bash
+npm install
 npm run dev
-# or
-npx envlock-core dev
 ```
+
+The server starts at `http://localhost:3000` with secrets decrypted from `.env.development` via 1Password.
 
 ### Running ad-hoc commands
 
-You can run any command with secrets injected — no config changes needed:
-
 ```bash
-npx envlock-core run <your normal command>
+npx envlock-core run <command>
 ```
 
 For example:
 
 ```bash
-# instead of: node server.js
-npx envlock-core run node server.js --port 4000
+# inject secrets into any command
+npx envlock-core run node server.js
 
-# with environment override
+# use staging secrets
 npx envlock-core run node server.js --staging
 ```
+
+## Setting Up From Scratch
+
+If you're adapting this for your own project:
+
+1. Install dependencies: `npm install`
+2. Encrypt your `.env.development`: `npx dotenvx encrypt -f .env.development`
+3. Store the generated `DOTENV_PRIVATE_KEY_DEVELOPMENT` in a 1Password Environment
+4. Set `onePasswordEnvId` in `envlock.config.js`

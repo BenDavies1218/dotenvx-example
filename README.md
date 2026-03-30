@@ -45,21 +45,8 @@ Every example follows the same pattern — see any `examples/<lang>/README.md` f
 All examples require:
 
 - **Node.js 18+**
-- **dotenvx** — for encrypting `.env` files (`npm install -g @dotenvx/dotenvx`)
-- **1Password CLI** — for storing decryption keys
-
-### Install 1Password CLI
-
-```bash
-brew install --cask 1password-cli@beta
-op --version  # 2.33.0+
-```
-
-### Enable CLI integration in the 1Password app
-
-1. Open **1Password** desktop app
-2. Go to **Settings → Developer**
-3. Enable **Integrate with 1Password CLI**
+- **1Password CLI** — for storing decryption keys (`brew install --cask 1password-cli@beta`)
+- **1Password desktop app** — with CLI integration enabled (**Settings → Developer → Integrate with 1Password CLI**)
 
 ![1Password CLI setting](./onePassCli.png)
 
@@ -69,27 +56,33 @@ op --version  # 2.33.0+
 op signin
 ```
 
-With biometric unlock enabled in the desktop app, the CLI authenticates automatically. You can adjust the auto-lock interval so you only need to unlock once per day.
+With biometric unlock enabled, the CLI authenticates automatically. You can adjust the auto-lock interval so you only need to unlock once per day.
 
 ![Auto-lock setting](./autolock_setting.png)
 
 ## Quick Setup for Any Language
 
 ```bash
-# 1. Install
-pnpm add envlock-core@latest
-
+# 1. Create an envlock.config.js in your project root
 # 2. Encrypt your .env file
 npx @dotenvx/dotenvx encrypt -f .env.development
 
-# 3. Store the generated
-DOTENV_PRIVATE_KEY_DEVELOPMENT in 1Password enviroment
+# 3. Store DOTENV_PRIVATE_KEY_DEVELOPMENT in a 1Password Environment
+#    and copy the environment ID into envlock.config.js
 
-# 4. Set your onePasswordEnvId in
-envlock.config.js
-
-# 5. Run
+# 4. Run
 npx envlock-core dev
+```
+
+Example `envlock.config.js`:
+
+```js
+export default {
+  onePasswordEnvId: "your-1password-environment-id",
+  commands: {
+    dev: "node server.js",
+  },
+};
 ```
 
 ## Next.js Plugin

@@ -2,34 +2,40 @@
 
 Minimal Flask app with secrets injected by envlock.
 
-## Setup
+## Prerequisites
 
-1. Create a virtualenv: `python -m venv .venv && source .venv/bin/activate`
-2. Install deps: `pip install -r requirements.txt`
-3. Install envlock: `npm install -g envlock-core`
-4. Encrypt your env: `npx dotenvx encrypt -f .env.development`
-5. Store key in 1Password and set `onePasswordEnvId` in `envlock.config.js`
+- Python 3.9+
 
 ## Run
 
 ```bash
+pip install -r requirements.txt
 npx envlock-core dev
 ```
 
+The server starts at `http://localhost:3000` with secrets decrypted from `.env.development` via 1Password.
+
 ### Running ad-hoc commands
 
-You can run any command with secrets injected — no config changes needed:
-
 ```bash
-npx envlock-core run <your normal command>
+npx envlock-core run <command>
 ```
 
 For example:
 
 ```bash
-# instead of: python app.py
+# inject secrets into any command
 npx envlock-core run python app.py
 
-# with environment override
+# use staging secrets
 npx envlock-core run python app.py --staging
 ```
+
+## Setting Up From Scratch
+
+If you're adapting this for your own project:
+
+1. Install dependencies: `pip install -r requirements.txt`
+2. Encrypt your `.env.development`: `npx dotenvx encrypt -f .env.development`
+3. Store the generated `DOTENV_PRIVATE_KEY_DEVELOPMENT` in a 1Password Environment
+4. Set `onePasswordEnvId` in `envlock.config.js`

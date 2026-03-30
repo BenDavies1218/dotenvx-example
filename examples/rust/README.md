@@ -2,12 +2,9 @@
 
 Minimal Axum server with secrets injected by envlock.
 
-## Setup
+## Prerequisites
 
-1. Install Rust: https://rustup.rs
-2. Install envlock: `npm install -g envlock-core`
-3. Encrypt your env: `npx dotenvx encrypt -f .env.development`
-4. Store key in 1Password and set `onePasswordEnvId` in `envlock.config.js`
+- [Rust](https://rustup.rs) (installs `cargo`)
 
 ## Run
 
@@ -15,20 +12,28 @@ Minimal Axum server with secrets injected by envlock.
 npx envlock-core dev
 ```
 
+The server starts at `http://localhost:3000` with secrets decrypted from `.env.development` via 1Password. The first run will compile dependencies — this takes a minute.
+
 ### Running ad-hoc commands
 
-You can run any command with secrets injected — no config changes needed:
-
 ```bash
-npx envlock-core run <your normal command>
+npx envlock-core run <command>
 ```
 
 For example:
 
 ```bash
-# instead of: cargo run --release
-npx envlock-core run cargo run --release
+# inject secrets into any command
+npx envlock-core run cargo run
 
-# with environment override
-npx envlock-core run cargo run --release --staging
+# use staging secrets
+npx envlock-core run cargo run --staging
 ```
+
+## Setting Up From Scratch
+
+If you're adapting this for your own project:
+
+1. Encrypt your `.env.development`: `npx dotenvx encrypt -f .env.development`
+2. Store the generated `DOTENV_PRIVATE_KEY_DEVELOPMENT` in a 1Password Environment
+3. Set `onePasswordEnvId` in `envlock.config.js`

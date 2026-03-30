@@ -2,33 +2,41 @@
 
 Minimal Sinatra app with secrets injected by envlock.
 
-## Setup
+## Prerequisites
 
-1. Install deps: `bundle install`
-2. Install envlock: `npm install -g envlock-core`
-3. Encrypt your env: `npx dotenvx encrypt -f .env.development`
-4. Store key in 1Password and set `onePasswordEnvId` in `envlock.config.js`
+- Ruby 3+
+- Bundler (`gem install bundler`)
 
 ## Run
 
 ```bash
+bundle install
 npx envlock-core dev
 ```
 
+The server starts at `http://localhost:3000` with secrets decrypted from `.env.development` via 1Password.
+
 ### Running ad-hoc commands
 
-You can run any command with secrets injected — no config changes needed:
-
 ```bash
-npx envlock-core run <your normal command>
+npx envlock-core run <command>
 ```
 
 For example:
 
 ```bash
-# instead of: bundle exec ruby app.rb
+# inject secrets into any command
 npx envlock-core run bundle exec ruby app.rb
 
-# with environment override
+# use staging secrets
 npx envlock-core run bundle exec ruby app.rb --staging
 ```
+
+## Setting Up From Scratch
+
+If you're adapting this for your own project:
+
+1. Install dependencies: `bundle install`
+2. Encrypt your `.env.development`: `npx dotenvx encrypt -f .env.development`
+3. Store the generated `DOTENV_PRIVATE_KEY_DEVELOPMENT` in a 1Password Environment
+4. Set `onePasswordEnvId` in `envlock.config.js`

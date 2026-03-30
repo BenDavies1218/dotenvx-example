@@ -2,11 +2,9 @@
 
 Minimal PHP app with secrets injected by envlock.
 
-## Setup
+## Prerequisites
 
-1. Install envlock: `npm install -g envlock-core`
-2. Encrypt your env: `npx dotenvx encrypt -f .env.development`
-3. Store key in 1Password and set `onePasswordEnvId` in `envlock.config.js`
+- PHP 8+
 
 ## Run
 
@@ -14,20 +12,28 @@ Minimal PHP app with secrets injected by envlock.
 npx envlock-core dev
 ```
 
+The server starts at `http://localhost:3000` with secrets decrypted from `.env.development` via 1Password.
+
 ### Running ad-hoc commands
 
-You can run any command with secrets injected — no config changes needed:
-
 ```bash
-npx envlock-core run <your normal command>
+npx envlock-core run <command>
 ```
 
 For example:
 
 ```bash
-# instead of: php -S localhost:8080
-npx envlock-core run php -S localhost:8080
+# inject secrets into any command
+npx envlock-core run php -S localhost:3000
 
-# with environment override
-npx envlock-core run php -S localhost:8080 --staging
+# use staging secrets
+npx envlock-core run php -S localhost:3000 --staging
 ```
+
+## Setting Up From Scratch
+
+If you're adapting this for your own project:
+
+1. Encrypt your `.env.development`: `npx dotenvx encrypt -f .env.development`
+2. Store the generated `DOTENV_PRIVATE_KEY_DEVELOPMENT` in a 1Password Environment
+3. Set `onePasswordEnvId` in `envlock.config.js`
