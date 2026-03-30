@@ -1,7 +1,7 @@
 export default {
-  onePasswordEnvId: 'xcg726x6avj2tzkdqzi4elnztu',
+  onePasswordEnvId: "your-1password-environment-id",
   commands: {
-    deploy: 'npx hardhat run scripts/deploy.js --network sepolia',
-    compile: 'npx hardhat compile',
+    deploy: "npx hardhat run scripts/deploy.js --network sepolia",
+    compile: "npx hardhat compile",
   },
-}
+};

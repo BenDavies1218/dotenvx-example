@@ -1,6 +1,6 @@
 export default {
-  onePasswordEnvId: 'xcg726x6avj2tzkdqzi4elnztu',
+  onePasswordEnvId: "your-1password-environment-id",
   commands: {
-    dev: 'ruby app.rb',
+    dev: "ruby app.rb",
   },
-}
+};

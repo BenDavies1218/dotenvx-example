@@ -1,6 +1,6 @@
 export default {
-  onePasswordEnvId: 'xcg726x6avj2tzkdqzi4elnztu',
+  onePasswordEnvId: "your-1password-environment-id",
   commands: {
-    dev: 'php -S localhost:3000',
+    dev: "php -S localhost:3000",
   },
-}
+};

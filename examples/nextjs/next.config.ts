@@ -5,6 +5,6 @@ export default withEnvlock(
     // your existing Next.js config
   },
   {
-    onePasswordEnvId: "xcg726x6avj2tzkdqzi4elnztu", // your 1Password Environment ID
+    onePasswordEnvId: "your-1password-environment-id", // your 1Password Environment ID
   },
 );

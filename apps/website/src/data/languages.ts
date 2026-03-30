@@ -157,7 +157,7 @@ export default withEnvlock(
 export function getConfigSnippet(lang: Language): string {
   if (lang.snippet) return lang.snippet;
   return `export default {
-  onePasswordEnvId: 'your-env-id',
+  onePasswordEnvId: 'your-1password-environment-id',
   commands: {
     dev: '${lang.command}',
   },
