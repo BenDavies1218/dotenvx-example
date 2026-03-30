@@ -13,7 +13,7 @@ Minimal Flask app with secrets injected by envlock.
 ## Run
 
 ```bash
-npx envlock dev
+npx envlock-core dev
 ```
 
 ### Running ad-hoc commands
@@ -21,15 +21,15 @@ npx envlock dev
 You can run any command with secrets injected — no config changes needed:
 
 ```bash
-npx envlock run <your normal command>
+npx envlock-core run <your normal command>
 ```
 
 For example:
 
 ```bash
 # instead of: python app.py
-npx envlock run python app.py
+npx envlock-core run python app.py
 
 # with environment override
-npx envlock run python app.py --staging
+npx envlock-core run python app.py --staging
 ```

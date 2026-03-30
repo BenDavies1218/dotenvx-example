@@ -11,7 +11,7 @@ Minimal PHP app with secrets injected by envlock.
 ## Run
 
 ```bash
-npx envlock dev
+npx envlock-core dev
 ```
 
 ### Running ad-hoc commands
@@ -19,15 +19,15 @@ npx envlock dev
 You can run any command with secrets injected — no config changes needed:
 
 ```bash
-npx envlock run <your normal command>
+npx envlock-core run <your normal command>
 ```
 
 For example:
 
 ```bash
 # instead of: php -S localhost:8080
-npx envlock run php -S localhost:8080
+npx envlock-core run php -S localhost:8080
 
 # with environment override
-npx envlock run php -S localhost:8080 --staging
+npx envlock-core run php -S localhost:8080 --staging
 ```

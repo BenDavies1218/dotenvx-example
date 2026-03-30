@@ -1,5 +1,12 @@
 const base = import.meta.env.BASE_URL;
 
+export interface SetupStep {
+  label: string;
+  code: string;
+  lang: string;
+  note?: string;
+}
+
 export interface Language {
   id: string;
   name: string;
@@ -11,6 +18,7 @@ export interface Language {
   examplePath: string;
   configFile?: string;
   snippet?: string;
+  steps?: SetupStep[];
 }
 
 export const languages: Language[] = [
@@ -19,17 +27,50 @@ export const languages: Language[] = [
     name: "Next.js",
     image: `${base}nextjs-removebg-preview.png`,
     imageClass: "bg-white rounded-full p-0.5",
-    description: "Native plugin — wrap your next.config.js with withEnvlock",
-    command: "npm run dev",
-    examplePath: "examples/node",
+    description: "Native plugin — wrap your next.config.ts with withEnvlock",
+    command: "pnpm dev",
+    examplePath: "examples/nextjs",
     configFile: "package.json",
     snippet: `{
   "scripts": {
-    "dev": "envlock next dev --turbo",
-    "build": "envlock next build",
-    "start": "envlock next start"
+    "dev": "envlock dev",
+    "build": "envlock build",
+    "start": "envlock start"
   }
 }`,
+    steps: [
+      {
+        label: "1. Create a new Next.js app",
+        code: "npx create-next-app@latest my-app\ncd my-app",
+        lang: "bash",
+      },
+      {
+        label: "2. Install envlock-next",
+        code: "pnpm add envlock-next",
+        lang: "bash",
+        note: "The postinstall script automatically rewrites your dev, build, and start scripts to use envlock.",
+      },
+      {
+        label: "3. Update next.config.ts",
+        code: `import { withEnvlock } from "envlock-next";
+
+export default withEnvlock(
+  {
+    // your existing Next.js config
+  },
+  {
+    onePasswordEnvId: "your-1password-environment-id",
+  },
+);`,
+        lang: "javascript",
+      },
+      {
+        label: "4. Run the dev server",
+        code: "pnpm dev",
+        lang: "bash",
+        note: "DOTENV_PRIVATE_KEY_DEVELOPMENT: '<concealed by 1Password>' — your decryption key is fetched from 1Password at runtime and never stored on disk.",
+      },
+    ],
   },
   {
     id: "node",

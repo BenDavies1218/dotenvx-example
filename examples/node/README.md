@@ -13,7 +13,7 @@ Minimal Express server with secrets injected by envlock.
 ```bash
 npm run dev
 # or
-npx envlock dev
+npx envlock-core dev
 ```
 
 ### Running ad-hoc commands
@@ -21,15 +21,15 @@ npx envlock dev
 You can run any command with secrets injected — no config changes needed:
 
 ```bash
-npx envlock run <your normal command>
+npx envlock-core run <your normal command>
 ```
 
 For example:
 
 ```bash
 # instead of: node server.js
-npx envlock run node server.js --port 4000
+npx envlock-core run node server.js --port 4000
 
 # with environment override
-npx envlock run node server.js --staging
+npx envlock-core run node server.js --staging
 ```

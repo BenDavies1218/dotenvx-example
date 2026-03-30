@@ -9,6 +9,7 @@
     "express": "^4.18.0"
   },
   "devDependencies": {
+    "@dotenvx/dotenvx": "^1.59.1",
     "envlock-core": "latest"
   }
 }

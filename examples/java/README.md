@@ -12,7 +12,7 @@ Minimal Spring Boot app with secrets injected by envlock.
 ## Run
 
 ```bash
-npx envlock dev
+npx envlock-core dev
 ```
 
 ### Running ad-hoc commands
@@ -20,15 +20,15 @@ npx envlock dev
 You can run any command with secrets injected — no config changes needed:
 
 ```bash
-npx envlock run <your normal command>
+npx envlock-core run <your normal command>
 ```
 
 For example:
 
 ```bash
 # instead of: mvn spring-boot:run
-npx envlock run mvn spring-boot:run
+npx envlock-core run mvn spring-boot:run
 
 # with environment override
-npx envlock run mvn spring-boot:run --staging
+npx envlock-core run mvn spring-boot:run --staging
 ```

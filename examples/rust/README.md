@@ -12,7 +12,7 @@ Minimal Axum server with secrets injected by envlock.
 ## Run
 
 ```bash
-npx envlock dev
+npx envlock-core dev
 ```
 
 ### Running ad-hoc commands
@@ -20,15 +20,15 @@ npx envlock dev
 You can run any command with secrets injected — no config changes needed:
 
 ```bash
-npx envlock run <your normal command>
+npx envlock-core run <your normal command>
 ```
 
 For example:
 
 ```bash
 # instead of: cargo run --release
-npx envlock run cargo run --release
+npx envlock-core run cargo run --release
 
 # with environment override
-npx envlock run cargo run --release --staging
+npx envlock-core run cargo run --release --staging
 ```

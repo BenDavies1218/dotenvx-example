@@ -11,7 +11,7 @@ Minimal net/http server with secrets injected by envlock.
 ## Run
 
 ```bash
-npx envlock dev
+npx envlock-core dev
 ```
 
 ### Running ad-hoc commands
@@ -19,15 +19,15 @@ npx envlock dev
 You can run any command with secrets injected — no config changes needed:
 
 ```bash
-npx envlock run <your normal command>
+npx envlock-core run <your normal command>
 ```
 
 For example:
 
 ```bash
 # instead of: go run main.go
-npx envlock run go run main.go
+npx envlock-core run go run main.go
 
 # with environment override
-npx envlock run go run main.go --staging
+npx envlock-core run go run main.go --staging
 ```

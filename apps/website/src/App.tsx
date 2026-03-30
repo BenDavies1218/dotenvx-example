@@ -47,7 +47,8 @@ function getScrollColor(): string {
 }
 
 export default function App(): React.JSX.Element {
-  const [gradientColor, setGradientColor] = useState<string>("rgb(187,247,208)");
+  const [gradientColor, setGradientColor] =
+    useState<string>("rgb(187,247,208)");
 
   useEffect(() => {
     function onScroll(): void {
@@ -79,7 +80,14 @@ export default function App(): React.JSX.Element {
         <OnePasswordCI />
         <InstallCTA />
         <footer className="text-center py-8 text-xs text-gray-400">
-          envlock — MIT License
+          envlock — MIT License — created by{" "}
+          <a
+            href="https://github.com/BenDavies1218"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Benjamin Davies
+          </a>
         </footer>
       </div>
     </div>

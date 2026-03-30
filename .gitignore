@@ -5,6 +5,11 @@
 /.pnp
 .pnp.js
 
+examples/nextjs/node_modules
+examples/node/node_modules
+examples/hardhat/node_modules
+apps/website/node_modules
+
 # testing
 /coverage
 

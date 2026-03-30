@@ -6,26 +6,9 @@ Secure secret injection for any language — encrypted `.env` files + 1Password,
 
 **envlock** combines [dotenvx](https://dotenvx.com/) encrypted `.env` files with [1Password CLI](https://developer.1password.com/docs/cli/) to inject secrets into any process at runtime. Nothing is ever written to the filesystem in plaintext.
 
-```bash
-npx envlock dev        # injects secrets, then runs your dev command
-npx envlock build      # same for build
-npx envlock <anything> # works with any runtime
-```
-
 How it works:
 
-```
-1Password Vault
-  └─ holds DOTENV_PRIVATE_KEY_*
-       │
-       ▼
-envlock CLI
-  ├─ op run  →  fetches key from 1Password
-  └─ dotenvx run -f .env.<env>  →  decrypts in memory
-       │
-       ▼
-  your process (node, python, go, rust, ...)
-```
+![envlock_runtime_flow](envlock_runtime_flow.svg)
 
 ## This Repo
 
@@ -34,31 +17,26 @@ envlock CLI
 | [`apps/website/`](apps/website/) | Static showcase site (Vite + React)          |
 | [`examples/`](examples/)         | Fully runnable minimal examples per language |
 
-## Showcase Site
+## Documentation
 
-```bash
-cd apps/website
-npm install
-npm run dev
-```
-
-Open [http://localhost:5173](http://localhost:5173).
+[Github pages](https://bendavies1218.github.io/envlock-examples/)
 
 ## Examples
 
 Each example is a self-contained minimal app showing how to use envlock with a specific language or framework.
 
-| Example                                  | Language / Framework |
-| ---------------------------------------- | -------------------- |
-| [`examples/node/`](examples/node/)       | Node.js (Express)    |
-| [`examples/python/`](examples/python/)   | Python (Flask)       |
-| [`examples/go/`](examples/go/)           | Go (net/http)        |
-| [`examples/rust/`](examples/rust/)       | Rust (Axum)          |
-| [`examples/ruby/`](examples/ruby/)       | Ruby (Sinatra)       |
-| [`examples/java/`](examples/java/)       | Java (Spring Boot)   |
-| [`examples/php/`](examples/php/)         | PHP                  |
-| [`examples/dotnet/`](examples/dotnet/)   | .NET (ASP.NET Core)  |
-| [`examples/hardhat/`](examples/hardhat/) | Hardhat (Ethereum)   |
+| Example                                  | Language / Framework   |
+| ---------------------------------------- | ---------------------- |
+| [`examples/nextjs/`](examples/nextjs/)   | Next.js (envlock-next) |
+| [`examples/node/`](examples/node/)       | Node.js (Express)      |
+| [`examples/python/`](examples/python/)   | Python (Flask)         |
+| [`examples/go/`](examples/go/)           | Go (net/http)          |
+| [`examples/rust/`](examples/rust/)       | Rust (Axum)            |
+| [`examples/ruby/`](examples/ruby/)       | Ruby (Sinatra)         |
+| [`examples/java/`](examples/java/)       | Java (Spring Boot)     |
+| [`examples/php/`](examples/php/)         | PHP                    |
+| [`examples/dotnet/`](examples/dotnet/)   | .NET (ASP.NET Core)    |
+| [`examples/hardhat/`](examples/hardhat/) | Hardhat (Ethereum)     |
 
 Every example follows the same pattern — see any `examples/<lang>/README.md` for setup steps.
 
@@ -66,7 +44,7 @@ Every example follows the same pattern — see any `examples/<lang>/README.md` f
 
 All examples require:
 
-- **Node.js 18+** — for envlock-core (`npm install -g envlock-core`)
+- **Node.js 18+**
 - **dotenvx** — for encrypting `.env` files (`npm install -g @dotenvx/dotenvx`)
 - **1Password CLI** — for storing decryption keys
 
@@ -95,41 +73,60 @@ With biometric unlock enabled in the desktop app, the CLI authenticates automati
 
 ![Auto-lock setting](./autolock_setting.png)
 
-## Quick Setup for Any Example
+## Quick Setup for Any Language
 
 ```bash
-# 1. Install envlock globally
-npm install -g envlock-core
+# 1. Install
+pnpm add envlock-core@latest
 
 # 2. Encrypt your .env file
-npx dotenvx encrypt -f .env.development
+npx @dotenvx/dotenvx encrypt -f .env.development
 
-# 3. Store the generated DOTENV_PRIVATE_KEY_DEVELOPMENT in 1Password
-#    Set your onePasswordEnvId in envlock.config.js
+# 3. Store the generated
+DOTENV_PRIVATE_KEY_DEVELOPMENT in 1Password enviroment
 
-# 4. Run
-npx envlock dev
+# 4. Set your onePasswordEnvId in
+envlock.config.js
+
+# 5. Run
+npx envlock-core dev
 ```
 
 ## Next.js Plugin
 
-For Next.js, use the native `@envlock/next` plugin instead of the CLI wrapper:
+For Next.js, use `envlock-next` — a native plugin that integrates directly with `next.config.ts`:
 
 ```bash
-npm install @envlock/next
+pnpm add envlock-next
 ```
 
-```js
-// next.config.js
-import { withEnvlock } from "@envlock/next";
+The postinstall script automatically rewrites your `package.json` scripts:
+
+```json
+{
+  "scripts": {
+    "dev": "envlock dev",
+    "build": "envlock build",
+    "start": "envlock start"
+  }
+}
+```
+
+Then wrap your config:
+
+```ts
+// next.config.ts
+import { withEnvlock } from "envlock-next";
 
 export default withEnvlock(
   {},
   {
-    onePasswordEnvId: "your-env-id",
+    onePasswordEnvId: "your-1password-environment-id",
   },
 );
 ```
+
+See [`examples/nextjs/`](examples/nextjs/) for a full working example.
 
 ## Benefits
 
@@ -138,4 +135,3 @@ export default withEnvlock(
 - **In-memory decryption** — secrets are never written to the filesystem
 - **Works with any runtime** — Node, Python, Go, Rust, Ruby, Java, PHP, .NET, and more
 - **CI-friendly** — set `DOTENV_PRIVATE_KEY_*` directly and envlock skips 1Password automatically
-- **Works with any language**
