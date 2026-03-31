@@ -10,6 +10,14 @@ How it works:
 
 ![envlock_runtime_flow](envlock_runtime_flow.svg)
 
+## Why
+
+AI coding tools like Copilot and Cursor have broad filesystem access by default. Malicious npm packages exploit this too — supply chain attacks increasingly target local credential files. If your secrets live in a plain `.env` file, they're one compromised dependency or one AI prompt away from being exfiltrated.
+
+Plain `.env` files also get committed accidentally, shared over Slack, and copied onto every developer's laptop with no audit trail.
+
+`envlock` removes the file entirely. Secrets only exist in memory, for the lifetime of the process that needs them.
+
 ## This Repo
 
 | Directory                        | What it is                                   |
