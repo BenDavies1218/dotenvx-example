@@ -1,6 +1,7 @@
 export default {
-  onePasswordEnvId: "your-1password-environment-id",
+  onePasswordEnvId: "your-1password-env-id",
   commands: {
-    dev: "node server.js",
+    start: "node server.js",
+    build: "node build.js",
   },
 };

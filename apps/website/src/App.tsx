@@ -82,7 +82,7 @@ export default function App(): React.JSX.Element {
         <OnePasswordCI />
         <InstallCTA />
         <footer className="text-center py-8 text-xs text-gray-400">
-          envlock — MIT License — created by{" "}
+          envlock — MIT License — Created by{" "}
           <a
             href="https://github.com/BenDavies1218"
             target="_blank"

@@ -1,15 +1,17 @@
 {
-  "name": "envlock-example-node",
+  "name": "test-node",
   "version": "1.0.0",
-  "type": "module",
+  "description": "",
+  "main": "server.js",
   "scripts": {
-    "dev": "envlock dev"
+    "start": "npx envlock-core start",
+    "build": "npx envlock-core build"
   },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
   "dependencies": {
-    "express": "^4.18.0"
-  },
-  "devDependencies": {
-    "@dotenvx/dotenvx": "^1.59.1",
-    "envlock-core": "latest"
+    "envlock-core": "^0.6.2",
+    "express": "^5.2.1"
   }
 }

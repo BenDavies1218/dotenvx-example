@@ -39,7 +39,17 @@ export function InstallCTA(): React.JSX.Element {
             rel="noreferrer"
             className="text-sm text-gray-500 hover:text-gray-900 transition-colors"
           >
-            View on GitHub →
+            View Examples on GitHub →
+          </a>
+        </div>
+        <div>
+          <a
+            href="https://www.npmjs.com/package/envlock-next"
+            target="_blank"
+            rel="noreferrer"
+            className="text-sm text-gray-500 hover:text-gray-900 transition-colors"
+          >
+            View NPM Package →
           </a>
         </div>
       </div>

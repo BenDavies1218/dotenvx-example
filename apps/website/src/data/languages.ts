@@ -2,8 +2,8 @@ const base = import.meta.env.BASE_URL;
 
 export interface SetupStep {
   label: string;
-  code: string;
-  lang: string;
+  code?: string;
+  lang?: string;
   note?: string;
 }
 
@@ -48,10 +48,19 @@ export const languages: Language[] = [
         label: "2. Install envlock-next",
         code: "pnpm add envlock-next",
         lang: "bash",
-        note: "The postinstall script automatically rewrites your dev, build, and start scripts to use envlock.",
       },
       {
-        label: "3. Update next.config.ts",
+        label: "3. Encrypt your environment variables",
+        code: "dotenvx encrypt -f .env.development",
+        lang: "bash",
+        note: "envlock supports env.development, env.staging, and env.production you can encrypt multiple files as needed.",
+      },
+      {
+        label: "4. Add the encryption key to 1Password environment",
+        note: "The encryption key will be fetched from 1Password at runtime.",
+      },
+      {
+        label: "5. Update next.config.ts",
         code: `import { withEnvlock } from "envlock-next";
 
 export default withEnvlock(
@@ -65,10 +74,24 @@ export default withEnvlock(
         lang: "javascript",
       },
       {
-        label: "4. Run the dev server",
+        label: "7. Update the package.json",
+        code: `"scripts": {
+    "dev": "envlock dev",
+    "build": "envlock build",
+    "start": "envlock start",
+    "lint": "eslint"
+  },`,
+        lang: "bash",
+      },
+      {
+        label: "8. Run the dev server",
         code: "pnpm dev",
         lang: "bash",
-        note: "DOTENV_PRIVATE_KEY_DEVELOPMENT: '<concealed by 1Password>' — your decryption key is fetched from 1Password at runtime and never stored on disk.",
+        note: "DOTENV_PRIVATE_KEY_DEVELOPMENT: '<concealed by 1Password>' — your decryption key is fetched from 1Password at runtime.",
+      },
+      {
+        label:
+          "CLI Flags: pnpm dev [ --staging  | --production ] to load the corresponding .env file",
       },
     ],
   },

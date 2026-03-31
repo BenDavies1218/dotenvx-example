@@ -66,23 +66,26 @@ function SetupSteps({ steps }: SetupStepsProps): React.JSX.Element {
       {steps.map((step) => (
         <div key={step.label}>
           <p className="text-xs font-medium text-gray-500 mb-2">{step.label}</p>
-          <div className="relative border border-gray-200 rounded overflow-hidden">
-            <div className="absolute top-2 right-3 z-10">
-              <CopyButton value={step.code} />
+          {step.code && (
+            <div className="relative border border-gray-200 rounded overflow-hidden">
+              <div className="absolute top-2 right-3 z-10">
+                <CopyButton value={step.code} />
+              </div>
+
+              <SyntaxHighlighter
+                language={step.lang}
+                style={githubGist}
+                customStyle={{
+                  background: "#f9fafb",
+                  padding: "0.625rem 0.75rem",
+                  margin: 0,
+                  fontSize: "0.8125rem",
+                }}
+              >
+                {step.code}
+              </SyntaxHighlighter>
             </div>
-            <SyntaxHighlighter
-              language={step.lang}
-              style={githubGist}
-              customStyle={{
-                background: "#f9fafb",
-                padding: "0.625rem 0.75rem",
-                margin: 0,
-                fontSize: "0.8125rem",
-              }}
-            >
-              {step.code}
-            </SyntaxHighlighter>
-          </div>
+          )}
           {step.note && (
             <p className="text-xs text-gray-400 mt-1.5 leading-relaxed">
               {step.note}

@@ -68,31 +68,6 @@ With biometric unlock enabled, the CLI authenticates automatically. You can adju
 
 ![Auto-lock setting](./autolock_setting.png)
 
-## Quick Setup for Any Language
-
-```bash
-# 1. Create an envlock.config.js in your project root
-# 2. Encrypt your .env file
-npx @dotenvx/dotenvx encrypt -f .env.development
-
-# 3. Store DOTENV_PRIVATE_KEY_DEVELOPMENT in a 1Password Environment
-#    and copy the environment ID into envlock.config.js
-
-# 4. Run
-npx envlock-core dev
-```
-
-Example `envlock.config.js`:
-
-```js
-export default {
-  onePasswordEnvId: "your-1password-environment-id",
-  commands: {
-    dev: "node server.js",
-  },
-};
-```
-
 ## Next.js Plugin
 
 For Next.js, use `envlock-next` — a native plugin that integrates directly with `next.config.ts`:
@@ -145,9 +120,9 @@ Commit `.env.production` (encrypted values are safe to commit). Never commit `.e
 
 In your Vercel project go to **Settings → Environment Variables** and add:
 
-| Name | Value | Environment |
-| ---- | ----- | ----------- |
-| `DOTENV_PRIVATE_KEY_PRODUCTION` | *(value from `.env.keys`)* | Production |
+| Name                            | Value                      | Environment |
+| ------------------------------- | -------------------------- | ----------- |
+| `DOTENV_PRIVATE_KEY_PRODUCTION` | _(value from `.env.keys`)_ | Production  |
 
 ### 3. Deploy
 
