@@ -8,6 +8,7 @@ import { InstallCTA } from "./components/InstallCTA";
 import { GitHubActions } from "./components/GitHubActions";
 import { OnePasswordCI } from "./components/OnePasswordCI";
 import { DotPattern } from "./components/DotPattern";
+import { WhyItsGood } from "./components/WhyItsGood";
 
 interface ColorStop {
   r: number;
@@ -73,6 +74,7 @@ export default function App(): React.JSX.Element {
       />
       <div className="relative z-10">
         <Hero />
+        <WhyItsGood />
         <HowItWorks />
         <LanguageShowcase />
         <ExamplesGrid />
