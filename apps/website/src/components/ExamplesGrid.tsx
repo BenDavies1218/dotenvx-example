@@ -2,7 +2,8 @@
 import { useState } from "react";
 import { languages } from "../data/languages";
 
-const GITHUB_BASE = "https://github.com/your-org/dotenvx-example/tree/main";
+const GITHUB_BASE =
+  "https://github.com/BenDavies1218/dotenvx-example/tree/main";
 
 // inner ring: 4 items, outer ring: 6 items
 const inner = languages.slice(0, 4);
@@ -33,7 +34,12 @@ interface Position {
   y: number;
 }
 
-function getPos(index: number, total: number, radiusPct: number, startAngle: number = -Math.PI / 2): Position {
+function getPos(
+  index: number,
+  total: number,
+  radiusPct: number,
+  startAngle: number = -Math.PI / 2,
+): Position {
   const angle = startAngle + (index / total) * 2 * Math.PI;
   return {
     x: 50 + radiusPct * Math.cos(angle),
@@ -58,7 +64,13 @@ interface LangNodeProps {
   onHover: (id: string | null) => void;
 }
 
-function LangNode({ lang, pos, style, hovered, onHover }: LangNodeProps): React.JSX.Element {
+function LangNode({
+  lang,
+  pos,
+  style,
+  hovered,
+  onHover,
+}: LangNodeProps): React.JSX.Element {
   const isLeft = pos.x < 50;
   const isTop = pos.y < 50;
   const imgSize = Math.round(style.size * 0.52);

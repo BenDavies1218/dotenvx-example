@@ -13,7 +13,8 @@ SyntaxHighlighter.registerLanguage("bash", bash);
 SyntaxHighlighter.registerLanguage("javascript", js);
 SyntaxHighlighter.registerLanguage("json", json);
 
-const GITHUB_BASE = "https://github.com/your-org/dotenvx-example/tree/main";
+const GITHUB_BASE =
+  "https://github.com/BenDavies1218/dotenvx-example/tree/main";
 
 interface CopyButtonProps {
   value: string;
@@ -166,7 +167,9 @@ export function LanguageShowcase(): React.JSX.Element {
           <>
             {/* Config snippet */}
             <div className="px-5 pt-4 pb-3 border-b border-gray-100">
-              <p className="text-xs font-mono text-gray-400 mb-1">{configFile}</p>
+              <p className="text-xs font-mono text-gray-400 mb-1">
+                {configFile}
+              </p>
               <SyntaxHighlighter
                 language={snippetLang}
                 style={githubGist}
