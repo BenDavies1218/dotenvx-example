@@ -58,7 +58,7 @@ export function WhyItsGood(): React.JSX.Element {
   return (
     <section id="why-its-good" className="max-w-4xl mx-auto px-6 pb-10">
       <h2 className="text-2xl font-semibold text-gray-900 mb-4 text-center pb-8">
-        Why All the Hassle, Why not just use a regular .env file?
+        Your .env file has been leaked. You just don't know it yet.
       </h2>
       <div className="flex flex-col justify-center items-start gap-10">
         {steps.map((step) => (

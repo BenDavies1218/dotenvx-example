@@ -3,8 +3,8 @@
   "version": "1.0.0",
   "type": "module",
   "scripts": {
-    "deploy": "envlock deploy",
-    "compile": "envlock compile"
+    "compile": "npx envlock-core compile",
+    "deploy": "npx envlock-core deploy"
   },
   "devDependencies": {
     "hardhat": "^2.22.0",

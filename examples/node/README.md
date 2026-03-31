@@ -14,9 +14,17 @@ The server starts at `http://localhost:3000` with secrets decrypted from `.env.d
 ### Available Scripts
 
 ```bash
-npm start   # runs: npx envlock-core start  → node server.js
-npm run build  # runs: npx envlock-core build  → node build.js
+npm start                  # uses .env.development (default)
+npm start -- --staging     # uses .env.staging
+npm start -- --production  # uses .env.production
+npm run build
 ```
+
+| Flag           | Description                                                          |
+| -------------- | -------------------------------------------------------------------- |
+| _(none)_       | Uses `.env.development` (default)                                    |
+| `--staging`    | Uses `.env.staging` and injects staging secrets from 1Password       |
+| `--production` | Uses `.env.production` and injects production secrets from 1Password |
 
 ## Setting Up From Scratch
 

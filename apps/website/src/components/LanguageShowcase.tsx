@@ -7,7 +7,6 @@ import json from "react-syntax-highlighter/dist/esm/languages/hljs/json";
 import { githubGist } from "react-syntax-highlighter/dist/esm/styles/hljs";
 import { languages, getConfigSnippet } from "../data/languages";
 import type { SetupStep } from "../data/languages";
-import { cn } from "../lib/utils";
 
 SyntaxHighlighter.registerLanguage("bash", bash);
 SyntaxHighlighter.registerLanguage("javascript", js);
@@ -101,7 +100,6 @@ export function LanguageShowcase(): React.JSX.Element {
   const [active, setActive] = useState<string>(languages[0].id);
   const lang = languages.find((l) => l.id === active)!;
   const configFile = lang.configFile ?? "envlock.config.js";
-  const commandName = lang.commandName ?? "dev";
   const isPlugin = lang.id === "nextjs";
   const snippetLang = configFile === "package.json" ? "json" : "javascript";
 
@@ -188,51 +186,15 @@ export function LanguageShowcase(): React.JSX.Element {
             </div>
 
             {/* Run options */}
-            {configFile !== "package.json" ? (
-              <div className="px-5 py-4 space-y-3">
-                <CodeRow
-                  label={`Named command (envlock.config.js)`}
-                  value={`npx envlock ${commandName}`}
-                />
-
-                <div className="flex items-center gap-3 text-xs text-gray-300 py-1">
-                  <div className="flex-1 h-px bg-gray-100" />
-                  <span>or run ad-hoc without config</span>
-                  <div className="flex-1 h-px bg-gray-100" />
-                </div>
-
-                <CodeRow
-                  label={`Ad-hoc — ${lang.command}`}
-                  value={`npx envlock run ${lang.command}`}
-                />
-              </div>
-            ) : (
-              <>
-                <div className="px-5 py-4 space-y-3">
-                  <CodeRow
-                    label={"Dev Server (Default --development)"}
-                    value={`pnpm dev [--staging | --production]`}
-                  />
-                </div>
-                <div className="px-5 py-4 space-y-3">
-                  <CodeRow
-                    label={"pnpm start (Production)"}
-                    value={`pnpm start [--development | --staging]`}
-                  />
-                </div>
-                <div
-                  className={cn(
-                    "px-5 py-4 space-y-3",
-                    lang.name === "Node.js" && "hidden",
-                  )}
-                >
-                  <CodeRow
-                    label={"Build (Default --production)"}
-                    value={`pnpm build [--development | --staging]`}
-                  />
-                </div>
-              </>
-            )}
+            <div className="px-5 py-4 space-y-3">
+              <CodeRow label="development (default)" value={lang.command} />
+              {lang.stagingCommand && (
+                <CodeRow label="staging" value={lang.stagingCommand} />
+              )}
+              {lang.productionCommand && (
+                <CodeRow label="production" value={lang.productionCommand} />
+              )}
+            </div>
           </>
         )}
       </div>

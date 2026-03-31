@@ -15,6 +15,9 @@ export interface Language {
   description: string;
   command: string;
   commandName?: string;
+  configCommand?: string;
+  stagingCommand?: string;
+  productionCommand?: string;
   examplePath: string;
   configFile?: string;
   snippet?: string;
@@ -29,6 +32,8 @@ export const languages: Language[] = [
     imageClass: "bg-white rounded-full p-0.5",
     description: "Native plugin — wrap your next.config.ts with withEnvlock",
     command: "pnpm dev",
+    stagingCommand: "pnpm dev --staging",
+    productionCommand: "pnpm dev --production",
     examplePath: "examples/nextjs",
     configFile: "package.json",
     snippet: `{
@@ -51,9 +56,9 @@ export const languages: Language[] = [
       },
       {
         label: "3. Encrypt your environment variables",
-        code: "dotenvx encrypt -f .env.development",
+        code: "npx @dotenvx/dotenvx encrypt -f .env.development",
         lang: "bash",
-        note: "envlock supports env.development, env.staging, and env.production you can encrypt multiple files as needed.",
+        note: "envlock supports .env.development, .env.staging, and .env.production — encrypt multiple files as needed.",
       },
       {
         label: "4. Add the encryption key to 1Password environment",
@@ -74,24 +79,25 @@ export default withEnvlock(
         lang: "javascript",
       },
       {
-        label: "7. Update the package.json",
-        code: `"scripts": {
+        label: "6. Update package.json scripts",
+        code: `{
+  "scripts": {
     "dev": "envlock dev",
     "build": "envlock build",
-    "start": "envlock start",
-    "lint": "eslint"
-  },`,
-        lang: "bash",
+    "start": "envlock start"
+  }
+}`,
+        lang: "json",
       },
       {
-        label: "8. Run the dev server",
+        label: "7. Run the dev server",
         code: "pnpm dev",
         lang: "bash",
         note: "DOTENV_PRIVATE_KEY_DEVELOPMENT: '<concealed by 1Password>' — your decryption key is fetched from 1Password at runtime.",
       },
       {
         label:
-          "CLI Flags: pnpm dev [ --staging  | --production ] to load the corresponding .env file",
+          "CLI Flags: pnpm dev [ --staging | --production ] to load the corresponding .env file",
       },
     ],
   },
@@ -100,13 +106,15 @@ export default withEnvlock(
     name: "Node.js",
     image: `${base}node-removebg-preview.png`,
     description: "Express, Fastify, or any Node.js server",
-    command: "npm run dev",
+    command: "npm start",
+    stagingCommand: "npm start -- --staging",
+    productionCommand: "npm start -- --production",
     examplePath: "examples/node",
     configFile: "package.json",
     snippet: `{
   "scripts": {
-    "dev": "envlock node server.js",
-    "start": "envlock node server.js --production"
+    "start": "npx envlock-core start",
+    "build": "npx envlock-core build"
   }
 }`,
   },
@@ -115,7 +123,10 @@ export default withEnvlock(
     name: "Python",
     image: `${base}python-removebg-preview.png`,
     description: "Flask, FastAPI, Django — any Python app",
-    command: "python app.py",
+    command: "npx envlock-core dev",
+    stagingCommand: "npx envlock-core dev --staging",
+    productionCommand: "npx envlock-core dev --production",
+    configCommand: "python app.py",
     examplePath: "examples/python",
   },
   {
@@ -123,7 +134,10 @@ export default withEnvlock(
     name: "Go",
     image: `${base}go-removebg-preview.png`,
     description: "Any Go binary or HTTP server",
-    command: "go run main.go",
+    command: "npx envlock-core dev",
+    stagingCommand: "npx envlock-core dev --staging",
+    productionCommand: "npx envlock-core dev --production",
+    configCommand: "go run main.go",
     examplePath: "examples/go",
   },
   {
@@ -131,7 +145,10 @@ export default withEnvlock(
     name: "Rust",
     image: `${base}rust-removebg-preview.png`,
     description: "Axum, Actix, or any Rust binary",
-    command: "cargo run",
+    command: "npx envlock-core dev",
+    stagingCommand: "npx envlock-core dev --staging",
+    productionCommand: "npx envlock-core dev --production",
+    configCommand: "cargo run",
     examplePath: "examples/rust",
   },
   {
@@ -139,7 +156,10 @@ export default withEnvlock(
     name: "Ruby",
     image: `${base}ruby-removebg-preview.png`,
     description: "Sinatra, Rails, or plain Ruby scripts",
-    command: "ruby app.rb",
+    command: "npx envlock-core dev",
+    stagingCommand: "npx envlock-core dev --staging",
+    productionCommand: "npx envlock-core dev --production",
+    configCommand: "ruby app.rb",
     examplePath: "examples/ruby",
   },
   {
@@ -147,7 +167,10 @@ export default withEnvlock(
     name: "Java",
     image: `${base}java-removebg-preview.png`,
     description: "Spring Boot or any Java application",
-    command: "./mvnw spring-boot:run",
+    command: "npx envlock-core dev",
+    stagingCommand: "npx envlock-core dev --staging",
+    productionCommand: "npx envlock-core dev --production",
+    configCommand: "./mvnw spring-boot:run",
     examplePath: "examples/java",
   },
   {
@@ -155,7 +178,10 @@ export default withEnvlock(
     name: "PHP",
     image: `${base}php-removebg-preview.png`,
     description: "Plain PHP or Laravel applications",
-    command: "php -S localhost:8000",
+    command: "npx envlock-core dev",
+    stagingCommand: "npx envlock-core dev --staging",
+    productionCommand: "npx envlock-core dev --production",
+    configCommand: "php -S localhost:3000",
     examplePath: "examples/php",
   },
   {
@@ -163,7 +189,10 @@ export default withEnvlock(
     name: ".NET",
     image: `${base}dotnet-removebg-preview.png`,
     description: "ASP.NET Core minimal API",
-    command: "dotnet run",
+    command: "npx envlock-core dev",
+    stagingCommand: "npx envlock-core dev --staging",
+    productionCommand: "npx envlock-core dev --production",
+    configCommand: "dotnet run",
     examplePath: "examples/dotnet",
   },
   {
@@ -171,9 +200,18 @@ export default withEnvlock(
     name: "Hardhat",
     image: `${base}eth-removebg-preview.png`,
     description: "Inject PRIVATE_KEY and RPC URLs at deploy time",
-    command: "npx hardhat run scripts/deploy.js",
+    command: "npm run deploy",
+    stagingCommand: "npm run deploy -- --staging",
+    productionCommand: "npm run deploy -- --production",
     commandName: "deploy",
     examplePath: "examples/hardhat",
+    configFile: "package.json",
+    snippet: `{
+  "scripts": {
+    "compile": "npx envlock-core compile",
+    "deploy": "npx envlock-core deploy"
+  }
+}`,
   },
 ];
 
@@ -182,7 +220,7 @@ export function getConfigSnippet(lang: Language): string {
   return `export default {
   onePasswordEnvId: 'your-1password-environment-id',
   commands: {
-    dev: '${lang.command}',
+    dev: '${lang.configCommand ?? lang.command}',
   },
 }`;
 }
